@@ -1,16 +1,21 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 const MAX_CHARS = 10_000;
 
 const PLATFORMS = [
   { label: "小红书风格", value: "xiaohongshu" },
   { label: "抖音爆款口播", value: "douyin" },
+  { label: "微信推文爆点", value: "wechat-article" },
+  { label: "Twitter Thread", value: "twitter-thread" },
+  { label: "LinkedIn 专业帖", value: "linkedin-post" },
+  { label: "B站口播脚本", value: "bilibili-script" },
 ];
 
 const DEFAULT_API_BASE = "https://api.openai.com/v1/chat/completions";
 const DEFAULT_MODEL = "gpt-4o-mini";
+const CONFIG_STORAGE_KEY = "vcr-api-config";
 
 export default function Home() {
   const [input, setInput] = useState("");
@@ -23,6 +28,30 @@ export default function Home() {
   const [modelName, setModelName] = useState(DEFAULT_MODEL);
   const [apiKey, setApiKey] = useState("");
   const [showConfig, setShowConfig] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const saved = window.localStorage.getItem(CONFIG_STORAGE_KEY);
+    if (!saved) return;
+    try {
+      const parsed = JSON.parse(saved);
+      setApiBase(parsed.apiBase ?? DEFAULT_API_BASE);
+      setModelName(parsed.model ?? DEFAULT_MODEL);
+      setApiKey(parsed.apiKey ?? "");
+    } catch {
+      window.localStorage.removeItem(CONFIG_STORAGE_KEY);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const payload = JSON.stringify({
+      apiBase,
+      model: modelName,
+      apiKey,
+    });
+    window.localStorage.setItem(CONFIG_STORAGE_KEY, payload);
+  }, [apiBase, modelName, apiKey]);
 
   const remainingChars = useMemo(
     () => Math.max(MAX_CHARS - input.length, 0),
@@ -97,10 +126,10 @@ export default function Home() {
               爆款文案重塑器 · MVP
             </p>
             <h1 className="text-3xl font-semibold leading-tight text-slate-900 md:text-4xl">
-              长文一键「小红书式」重塑
+              长文一键多平台爆款重塑
             </h1>
             <p className="text-sm text-slate-500">
-              粘贴文章或网址到这里（最多 10,000 字），15 秒内生成社媒爆款文案。
+              粘贴文章或网址到这里（最多 10,000 字），15 秒内生成小红书、抖音、微信、Twitter、LinkedIn、B站等预设风格。
             </p>
           </div>
 

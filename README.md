@@ -1,6 +1,6 @@
 ## 爆款文案重塑器 · MVP
 
-基于 Next.js 14 App Router + Tailwind CSS 的社交平台文案重塑工具，可在 15 秒内把长文转换成小红书/抖音爆款风格。页面端支持实时配置大模型地址、模型名称与 API Key，方便快速切换不同服务商。
+基于 Next.js 14 App Router + Tailwind CSS 的社交平台文案重塑工具，可在 15 秒内把长文转换成小红书、抖音、微信、Twitter、LinkedIn、B 站等多种爆款风格。页面端支持实时配置大模型地址、模型名称与 API Key，方便快速切换不同服务商。
 
 ### 环境变量
 
@@ -10,7 +10,8 @@
 NEXT_PUBLIC_API_KEY=sk-xxxx
 ```
 
-> 后端默认指向火山方舟 `doubao-seed-1-6-flash-250828`。如需调用 OpenAI/Claude 等，只需在页面「大模型调用配置」面板输入新的 Base URL、模型名与 Key，即可无需改代码。
+> 后端默认指
+向火山方舟 `doubao-seed-1-6-flash-250828`。如需调用 OpenAI/Claude 等，只需在页面「大模型调用配置」面板输入新的 Base URL、模型名与 Key，即可无需改代码。
 
 ### 本地启动
 
