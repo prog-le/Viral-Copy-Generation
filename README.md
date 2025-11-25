@@ -22,11 +22,3 @@ npm run dev
 
 访问 [http://localhost:3000](http://localhost:3000) 即可体验：粘贴长文 → 选择平台 → 点击 “✨ 立即重塑为爆款文案” → 查看结果并一键复制。
 
-### 部署
-
-推荐部署 Vercel：
-
-1. 推送代码到 Git 仓库；
-2. 在 Vercel 导入该仓库；
-3. 在「Environment Variables」中设置 `NEXT_PUBLIC_API_KEY`；
-4. 一键部署，默认启用 Serverless API 路由，可直接上线测试市场反馈。
